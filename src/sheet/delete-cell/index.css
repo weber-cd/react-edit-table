@@ -1,0 +1,22 @@
+.table-context-tips{
+  height: 18px;
+  background-size: auto;
+  padding: 8.5px 4px;
+}
+
+
+.delete-container{
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.delete-container .table-context-delete{
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 7px auto 0;
+  /* padding: 8.5px 4px; */
+  background: url('./imgs/delete.png') no-repeat center center;
+  background-size: 100% 100%;
+}

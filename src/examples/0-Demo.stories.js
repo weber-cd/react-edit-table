@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactEditableTable from './../index';
+import ReactEditableTable from './../index.ts';
 
 export default {
   title: 'Demo',

@@ -14,9 +14,10 @@ export interface IColumnsItem {
   dataIndex: string;
   title: string;
   editable: boolean;
+  suffixInfo?: React.ComponentType;
 }
 
-export type TypeEditorRender = (text, record, index, onsubmit) => ReactNode;
+export type TypeEditorRender = (text, record, onsubmit) => ReactNode;
 
 export type TypeValueRender = (value: string | number) => ReactNode;
 

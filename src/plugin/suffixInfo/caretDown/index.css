@@ -1,0 +1,6 @@
+.suffix-info-inner.caret-down{
+  height: 6px;
+  width: 6px;
+  background: url('./imgs/caret-down.svg') no-repeat center center;
+  background-size: 100% 100%;
+}
