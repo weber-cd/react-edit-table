@@ -6,7 +6,7 @@ import Cell from './cell.component'
 function Header ({ columns }) {
   return (
     <Row>
-      {columns.map(({title, key})=>(
+      {columns && columns.map(({title, key})=>(
         <Cell key = {key} className={'cell header-cell'}>
           <span className="value-viewer">
             <span className="value-viewer-content">{title}</span>

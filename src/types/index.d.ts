@@ -1,5 +1,9 @@
 import {ReactNode} from 'react'
 
+export interface IStandardObject {
+  [property: string]: any;
+}
+
 export interface IDataSourceItem {
   [property: string]: string;
 }
@@ -17,9 +21,16 @@ export interface IColumnsItem {
   suffixInfo?: React.ComponentType;
 }
 
-export type TypeEditorRender = (text, record, onsubmit) => ReactNode;
 
-export type TypeValueRender = (value: string | number) => ReactNode;
+interface IEditorRenderProps {
+  cellData: TypeCellData
+  currentTarget: (EventTarget & Element) | null;
+  onSubmit: ExtendFiledSubmit;
+}
+
+export type TypeEditorRender = (params: IEditorRenderProps) => ReactNode;
+
+export type TypeValueRender = (cellData: TypeCellData) => ReactNode;
 
 export interface IOptionItem {
   value?: string | number,
@@ -29,3 +40,9 @@ export interface IOptionItem {
 }
 
 export type ExtendFiledSubmit = (value: any ) => void
+
+interface ICellDataDefault extends IStandardObject{
+  value: string
+}
+
+export type TypeCellData = string | number | ICellDataDefault;

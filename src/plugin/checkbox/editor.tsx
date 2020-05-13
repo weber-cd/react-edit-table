@@ -1,6 +1,6 @@
-import React from 'react'
-// import './index.css'
+import React from 'react' 
 import {ExtendFiledSubmit} from '../../types'
+import './index.css'
 
 interface CheckboxEditorProps {
   checked: boolean;

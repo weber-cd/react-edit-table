@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {MouseEvent} from 'react'
 import Cell from './cell.component'
-import { TypeEditorRender, TypeValueRender } from '../types'
+import { TypeEditorRender, TypeValueRender, TypeCellData } from '../types'
 
 type TPath = [number, string]
 
 interface IDataCellProps {
-  editorRender: TypeEditorRender;
-  valueRender: TypeValueRender;
-  value: string;
-  onCellSubmit: (params: TPath, value: string ) => void;
+  editorRender?: TypeEditorRender;
+  valueRender?: TypeValueRender;
+  cellData: TypeCellData;
+  onCellSubmit: (params: TPath, value: string | number ) => void;
   className: string;
   path: TPath;
   editable: boolean;
@@ -16,25 +16,28 @@ interface IDataCellProps {
 }
 
 export default class DataCell extends React.Component<IDataCellProps> {
-  currentTarget = null
+  currentTarget: (EventTarget & Element) | null = null
   state = {
     isEditing: false
   }
-  constructor (props) {
-    super(props)
-  }
-  changeEditStatus = (e) => {
+  changeEditStatus = (e: MouseEvent) => {
     // 不可编辑
     if(this.props.editable === false) return false
     this.currentTarget = e.currentTarget;
     this.setState({isEditing: true})
   }
-  onCellValueChange = (value) => {
+  onCellValueChange = (value: string | number) => {
     this.setState({isEditing: false})
     this.props.onCellSubmit(this.props.path, value)
   }
+  cellDataIsNull = (cellData: TypeCellData) => {
+    if(typeof cellData === 'object'){
+      return cellData.value === null
+    }
+    return cellData === null
+  }
   render () {
-    const { editorRender: DataEditor, value, valueRender, editable, suffixInfo: SuffixInfo } = this.props;
+    const { editorRender: DataEditor, cellData, valueRender, editable, suffixInfo: SuffixInfo } = this.props;
     let { className } = this.props;
     if(editable === false) {
       // console.log('className:', className)
@@ -48,18 +51,19 @@ export default class DataCell extends React.Component<IDataCellProps> {
         >
         {
           this.state.isEditing && DataEditor  ?
-          DataEditor(value, this.currentTarget, this.onCellValueChange)
+          DataEditor({cellData, currentTarget: this.currentTarget, onSubmit: this.onCellValueChange})
           :
           <span className="value-viewer">
             <span className="value-viewer-content">
-              {valueRender ?  valueRender(value) : value}
+              {valueRender ?  valueRender(cellData) : cellData}
             </span>
           </span>
         }
-        <span className={`suffix-info ${this.state.isEditing ? 'suffix-info-active' : ''}`}>
+        <span className={`suffix-info ${this.state.isEditing || this.cellDataIsNull(cellData)  ? 'suffix-info-active' : ''}`}>
           {SuffixInfo}
         </span>
       </Cell>
     )
   }
 }
+

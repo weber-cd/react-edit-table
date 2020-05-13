@@ -1,9 +1,11 @@
 // dataSource example
 // import { InputEditor, SelectEditor, CheckboxEditor, CheckboxRender } from './../../lib'
+import React from 'react';
 import { InputEditor, SelectEditor, CheckboxEditor, CheckboxRender } from '../index'
 import SuffixCaretDown from '../plugin/suffixInfo/caretDown' 
 
-const stageOptions = [
+
+const gradeOptions = [
   {
     value: 1,
     text: '1年级',
@@ -27,36 +29,46 @@ const stageOptions = [
 
 export const columns = [
   {
+    title: '年级',
+    dataIndex: 'grade',
+    key: 'grade',
+    editorRender: ({cellData, currentTarget, onSubmit}) => <SelectEditor cellData={cellData} currentTarget={currentTarget} options={gradeOptions} onSubmit={onSubmit}/>,
+    valueRender: (cellData) => `${cellData}年级`,
+    suffixInfo: <SuffixCaretDown />
+  },
+  {
     title: '班级',
-    dataIndex: 'stage',
-    key: 'stage',
-    editorRender: (value, currentTarget, onSubmit) => <SelectEditor value={value} currentTarget={currentTarget} options={stageOptions} onSubmit={onSubmit}/>,
-    valueRender: (value) => `${value}年级`,
-    suffixInfo: <SuffixCaretDown/>
+    dataIndex: 'classTh',
+    key: 'classTh',
+    editorRender: ({cellData, currentTarget, onSubmit}) => <SelectEditor cellData={cellData} currentTarget={currentTarget} options={cellData.options} onSubmit={onSubmit}/>,
+    valueRender: (cellData) => {
+      return cellData && `${cellData.value !== null ? cellData.value+'班': '请选择'}`
+    },
+    suffixInfo: <SuffixCaretDown />
   },
   {
     title: '姓名',
     dataIndex: 'name',
-    editable: false,
     key: 'name',
+    editorRender: ({cellData, currentTarget, onSubmit}) =>  <InputEditor value={cellData} onSubmit={onSubmit} />
   },
   {
     title: '年龄',
     dataIndex: 'age',
     key: 'age',
-    editorRender: (value, currentTarget, onSubmit) =>  <InputEditor value={value} onSubmit={onSubmit} />
+    editable: false
   },
   {
     title: '住址',
     dataIndex: 'address',
     key: 'address',
-    editorRender: (value, currentTarget, onSubmit) =>  <InputEditor  value={value} onSubmit={onSubmit} />
+    editorRender: ({cellData, currentTarget, onSubmit}) =>  <InputEditor  value={cellData} onSubmit={onSubmit} />
   },
   {
     title: '激活',
     dataIndex: 'start',
     key: 'start',
-    editorRender: (value, currentTarget, onSubmit) => <CheckboxEditor checked={value} onSubmit={onSubmit}/>,
+    editorRender: ({cellData, currentTarget, onSubmit}) => <CheckboxEditor checked={cellData} onSubmit={onSubmit}/>,
     valueRender: (value) => <CheckboxRender checked={value} />
   }
 ];
@@ -67,7 +79,24 @@ export const dataSource = [
     name: '张三',
     age: 32,
     address: '高新区233',
-    stage: '1',
+    grade: '1',
+    classTh: {
+      value: 1,
+      options: [
+        {
+          value: 1,
+          text: '1班'
+        }, 
+        {
+          value: 2,
+          text: '2班'
+        },
+        {
+          value: 3,
+          text: '3班'
+        }
+      ]
+    },
     start: false
   },
   {
@@ -75,7 +104,20 @@ export const dataSource = [
     name: '李四',
     age: 42,
     address: '天府新区233',
-    stage: '2',
+    grade: '2',
+    classTh: {
+      value: 1,
+      options: [
+        {
+          value: 1,
+          text: '1班'
+        }, 
+        {
+          value: 2,
+          text: '2班'
+        }
+      ]
+    },
     start: true
   },
 ];

@@ -1,7 +1,11 @@
 import React from 'react'
-// import './index.css'
+import './index.css';
 
-export default function CheckboxEditor(props) {
+interface CheckboxEditorProps {
+  checked: boolean;
+}
+
+export default function CheckboxEditor(props:CheckboxEditorProps) {
   const { checked } = props;
   return (
     <div className='checkbox-render-container'>

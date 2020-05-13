@@ -1,0 +1,10 @@
+/* .checkbox-editor ,.checkbox-render{
+  width: 14px;
+  height: 14px;
+} */
+
+.checkbox-editor ,.checkbox-render{
+  width: 14px;
+  height: 14px;
+  padding-bottom: 2px;
+}

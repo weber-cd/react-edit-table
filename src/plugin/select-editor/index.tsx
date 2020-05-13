@@ -1,12 +1,12 @@
-
 import React from 'react';
+
 import './index.css'
 
 import Portal from '../../common/portal'
 
 import { IOptionItem, ExtendFiledSubmit } from '../../types'
 
-class DropDown extends React.Component<{options: IOptionItem[], currentTarget: HTMLElement, onSubmit: ExtendFiledSubmit, value: string | number}>{
+class DropDown extends React.Component<{options: IOptionItem[], currentTarget: HTMLElement, onSubmit: ExtendFiledSubmit, cellData: TypeCellData}>{
   dropdownContent = null;
 
   handleSelect = (item) => (e) => {
@@ -18,11 +18,20 @@ class DropDown extends React.Component<{options: IOptionItem[], currentTarget: H
     else 
     //否则，我们需要使用IE的方式来取消事件冒泡 
     {  window.event.cancelBubble = true;}
-    this.props.onSubmit(item.value)
+
+    if(typeof this.props.cellData === 'object'){
+      this.props.onSubmit({
+        ...this.props.cellData,
+        value: item.value
+      })
+    }else{
+      this.props.onSubmit(item.value)
+    }
   }
 
   handleBlur = (e1) => {
-    this.props.onSubmit(this.props.value)
+    // 这里判断对象数据源是什么格式的
+    this.props.onSubmit(this.props.cellData)
   }
 
   componentDidMount(){

@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import SheetRenderer from './sheet-component'
 import Header from './header.component'
 import Column from './column.component'
-
 import { IDataSourceItem, IColumnsItem } from '../types'
+import "./react-datasheet.style.css";
 
 interface IDataSheetProps {
   dataSource: IDataSourceItem[];
@@ -18,10 +18,10 @@ interface IDataSheetState {
 }
 
 export default class DataSheet extends React.PureComponent<IDataSheetProps, IDataSheetState> {
-  constructor (props: IDataSheetProps) {
+  constructor (props) {
     // console.log('DataSheet:', props)
     super(props)
-    // this.state.dataSource = this.props.dataSource
+    console.log(this.props.dataSource)
     this.state = {
       dataSource: this.props.dataSource
     }
@@ -37,11 +37,6 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
     // this.dgDom && this.dgDom.removeEventListener('keydown', this.handleComponentKey)
   }
 
-  componentWillReceiveProps({dataSource}) {
-    this.setState({
-      dataSource
-    })
-  }
   componentDidUpdate (prevProps, prevState) {
     
   }
@@ -52,7 +47,7 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
     this.state.dataSource[rowIndex][key] = value;
     this.setState({dataSource: [...this.state.dataSource]})
     // this.props.onChange(this.state.dataSource, position, value)
-    this.props.onChange(this.state.dataSource)
+    this.props.onChange({newDataSource: this.state.dataSource, rowIndex, key})
   }
 
   onDataRowDelete = (rowIndex) => {
@@ -61,10 +56,11 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
       dataSource: [...this.state.dataSource]
     })
     this.props.onChange([...this.state.dataSource])
+    this.props.onChange({newDataSource: [...this.state.dataSource]})
   }
-  /* static getDerivedStateFromProps = ({dataSource}, state) => {
+  static getDerivedStateFromProps = ({dataSource}) => {
     return {dataSource: dataSource || []}
-  } */
+  }
   render () {
     const {className, overflow, columns} = this.props
     const rowLength:number = this.state.dataSource.length;

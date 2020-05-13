@@ -16,7 +16,7 @@ interface IColumnProps {
 }
 // 表体行
 export default class Column extends React.PureComponent<IColumnProps> {
-  onCellSubmit = (path, value) => {
+  onCellSubmit = (path:TPath, value: string) => {
     this.props.onDataSourceUpdate(path, value)
   }
   render(){
@@ -27,7 +27,7 @@ export default class Column extends React.PureComponent<IColumnProps> {
           <DataCell
             key={dataIndex}
             onCellSubmit = {this.onCellSubmit}
-            value={dataSourceItem[dataIndex]}
+            cellData={dataSourceItem[dataIndex]}
             editorRender = { editorRender }
             className = {'cell'}
             path={[rowIndex, dataIndex]}
