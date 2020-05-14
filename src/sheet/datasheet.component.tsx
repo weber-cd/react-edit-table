@@ -1,27 +1,31 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import SheetRenderer from './sheet-component'
 import Header from './header.component'
 import Column from './column.component'
-import { IDataSourceItem, IColumnsItem } from '../types'
+import { IDataSourceItem, IColumnsItem, IScrollBodyOptions, TPath, TCellValue } from './../types'
 import "./react-datasheet.style.css";
+const rowHeight = 40;
 
 interface IDataSheetProps {
   dataSource: IDataSourceItem[];
   columns: IColumnsItem[];
-  onChange: (params:any) => void;
+  onChange: (e: any) => void;
   className: string;
-  overflow: string;
+  fromBodyEl: HTMLElement;
+  maxBodyHeight: number;
+  scrollBodyOptions: IScrollBodyOptions
 }
 
 interface IDataSheetState {
   dataSource: IDataSourceItem[]
 }
 
-export default class DataSheet extends React.PureComponent<IDataSheetProps, IDataSheetState> {
-  constructor (props) {
+export default class DataSheet extends React.Component<IDataSheetProps, IDataSheetState> {
+  fromBodyEl:HTMLDivElement | null = null;
+  constructor (props: IDataSheetProps) {
     // console.log('DataSheet:', props)
     super(props)
-    console.log(this.props.dataSource)
+    // this.state.dataSource = this.props.dataSource
     this.state = {
       dataSource: this.props.dataSource
     }
@@ -37,11 +41,17 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
     // this.dgDom && this.dgDom.removeEventListener('keydown', this.handleComponentKey)
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    
+  componentWillReceiveProps({ dataSource }: IDataSheetProps) {
+    this.setState({
+      dataSource
+    })
   }
-
-  onDataSourceUpdate = (position, value) => {
+  componentDidUpdate ({ scrollBodyOptions } : IDataSheetProps) {
+    if(scrollBodyOptions && scrollBodyOptions.locateRow !== undefined){
+      this.fromBodyEl && (this.fromBodyEl.scrollTop = rowHeight * scrollBodyOptions.locateRow);
+    }
+  }
+  onDataSourceUpdate = (position: TPath, value: TCellValue) => {
     const [ rowIndex, key ] = position;
     // 根据路径，更新值
     this.state.dataSource[rowIndex][key] = value;
@@ -50,7 +60,7 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
     this.props.onChange({newDataSource: this.state.dataSource, rowIndex, key})
   }
 
-  onDataRowDelete = (rowIndex) => {
+  onDataRowDelete = (rowIndex: number) => {
     this.state.dataSource.splice(rowIndex, 1)
     this.setState({
       dataSource: [...this.state.dataSource]
@@ -58,16 +68,26 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
     this.props.onChange([...this.state.dataSource])
     this.props.onChange({newDataSource: [...this.state.dataSource]})
   }
-  static getDerivedStateFromProps = ({dataSource}) => {
+
+  /* static getDerivedStateFromProps = ({dataSource}, state) => {
     return {dataSource: dataSource || []}
-  }
+  } */
   render () {
-    const {className, overflow, columns} = this.props
-    const rowLength:number = this.state.dataSource.length;
+    const {className, columns, scrollBodyOptions} = this.props
+    
+    const styles:CSSProperties = {};
+    if(scrollBodyOptions && scrollBodyOptions.maxHeight){
+      styles['maxHeight'] = `${scrollBodyOptions.maxHeight}px`
+      styles['overflowY'] = 'auto'
+    }else{
+      const rowLength:number = this.state.dataSource.length;
+      styles['height'] = `${rowLength * rowHeight + 50}px`
+    }
     return (
-      <div className='data-grid-container' style={{ height: `${rowLength * 40 + 50}px`}}>
-        <SheetRenderer className={['data-grid', className, overflow].filter(a => a).join(' ')}>
-        <Header columns = {columns} />
+      <div className='data-grid-container'>
+        <SheetRenderer className={['data-grid', className].filter(a => a).join(' ')}>
+        <Header columns = {columns}/>
+        <div  style={styles} ref={node => this.fromBodyEl = node}>
         {
           this.state.dataSource.map((dataSourceItem, index) => (
             <Column
@@ -80,6 +100,7 @@ export default class DataSheet extends React.PureComponent<IDataSheetProps, IDat
               />
           ))
         }
+        </div>
         </SheetRenderer>
       </div>
     )

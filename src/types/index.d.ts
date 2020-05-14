@@ -1,11 +1,11 @@
-import {ReactNode} from 'react'
+import {ReactNode, ReactElement} from 'react'
 
 export interface IStandardObject {
   [property: string]: any;
 }
 
 export interface IDataSourceItem {
-  [property: string]: string;
+  [property: string]: TypeCellData;
 }
 
 export interface IColumnsItem {
@@ -21,16 +21,18 @@ export interface IColumnsItem {
   suffixInfo?: React.ComponentType;
 }
 
+export type TPath = [number, string]; // [rowIndex, key]
 
 interface IEditorRenderProps {
-  cellData: TypeCellData
-  currentTarget: (EventTarget & Element) | null;
+  cellData: TypeCellData;
+  currentTarget: EventTarget | null;
   onSubmit: ExtendFiledSubmit;
+  path: TPath;
 }
 
-export type TypeEditorRender = (params: IEditorRenderProps) => ReactNode;
+export type TypeEditorRender = (params: IEditorRenderProps) => ReactElement;
 
-export type TypeValueRender = (cellData: TypeCellData) => ReactNode;
+export type TypeValueRender = (cellData: TypeCellData) => ReactElement;
 
 export interface IOptionItem {
   value?: string | number,
@@ -46,3 +48,10 @@ interface ICellDataDefault extends IStandardObject{
 }
 
 export type TypeCellData = string | number | ICellDataDefault;
+
+export type TCellValue = string | number;
+
+export interface IScrollBodyOptions {
+  maxHeight: number,
+  locateRow: number
+}

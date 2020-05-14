@@ -1,8 +1,6 @@
-import React, {MouseEvent} from 'react'
+import React, { MouseEvent } from 'react'
 import Cell from './cell.component'
-import { TypeEditorRender, TypeValueRender, TypeCellData } from '../types'
-
-type TPath = [number, string]
+import { TypeEditorRender, TypeValueRender, TypeCellData, TPath } from './../types'
 
 interface IDataCellProps {
   editorRender?: TypeEditorRender;
@@ -16,13 +14,16 @@ interface IDataCellProps {
 }
 
 export default class DataCell extends React.Component<IDataCellProps> {
-  currentTarget: (EventTarget & Element) | null = null
+  currentTarget: null | EventTarget = null
   state = {
     isEditing: false
   }
-  changeEditStatus = (e: MouseEvent) => {
+  constructor (props:IDataCellProps) {
+    super(props)
+  }
+  changeEditStatus = (e: MouseEvent<HTMLDivElement>) => {
     // 不可编辑
-    if(this.props.editable === false) return false
+    if(this.props.editable === false) return;
     this.currentTarget = e.currentTarget;
     this.setState({isEditing: true})
   }
@@ -36,11 +37,18 @@ export default class DataCell extends React.Component<IDataCellProps> {
     }
     return cellData === null
   }
+  isCellEditable = () => {
+    const { cellData, editable } = this.props;
+    if( typeof cellData === 'object' && cellData.editable !== undefined ){
+      console.log('编辑')
+      return !(cellData.editable === false)
+    }
+    return !(editable === false)
+  }
   render () {
-    const { editorRender: DataEditor, cellData, valueRender, editable, suffixInfo: SuffixInfo } = this.props;
+    const { editorRender: DataEditor, cellData, valueRender, suffixInfo: SuffixInfo, path } = this.props;
     let { className } = this.props;
-    if(editable === false) {
-      // console.log('className:', className)
+    if(!this.isCellEditable()) {
       className = `${className} read-only`
     }
     return (
@@ -50,8 +58,9 @@ export default class DataCell extends React.Component<IDataCellProps> {
         className = {className}
         >
         {
-          this.state.isEditing && DataEditor  ?
-          DataEditor({cellData, currentTarget: this.currentTarget, onSubmit: this.onCellValueChange})
+          this.state.isEditing && DataEditor &&  this.isCellEditable()
+          ?
+          DataEditor({cellData, currentTarget: this.currentTarget, onSubmit: this.onCellValueChange, path})
           :
           <span className="value-viewer">
             <span className="value-viewer-content">
@@ -66,4 +75,3 @@ export default class DataCell extends React.Component<IDataCellProps> {
     )
   }
 }
-

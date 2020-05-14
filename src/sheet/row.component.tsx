@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
-function Row ({ children }) {
+interface IRowProps{
+  children: ReactNode | ReactNode[]
+}
+function Row ({ children }: IRowProps) {
   return (
     <div className="row-container">
       {children}
@@ -8,4 +11,4 @@ function Row ({ children }) {
   )
 }
 
-export default React.memo(Row)
+export default Row

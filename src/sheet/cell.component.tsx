@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { CSSProperties, ReactElement, MouseEventHandler, ReactNode } from 'react'
 
-function Cell (props) {
+interface ICellProps{
+  className: string
+  style?: CSSProperties
+  onMouseDown?: MouseEventHandler<HTMLDivElement>
+  children: ReactNode | ReactNode[]
+}
+
+// function Cell (props: ICellProps): React.SFC<ICellProps> {
+// const App: React.SFC<Props> = (props: Props) => 
+const Cell:  React.SFC<ICellProps> = (props: ICellProps) =>  {
   const {
-        className, style, onMouseDown, onMouseOver, onDoubleClick, onContextMenu
+        className, style, onMouseDown: onMouseDownControl, children
       } = props
 
   return (
     <div
       className={className}
-      onMouseDown={onMouseDown}
-      onMouseOver={onMouseOver}
-      onDoubleClick={onDoubleClick}
-      onTouchEnd={onDoubleClick}
-      onContextMenu={onContextMenu}
+      onMouseDown={onMouseDownControl}
       style={style}
     >
-      {props.children}
+      {children}
     </div>
   )
 }
