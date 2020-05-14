@@ -1,13 +1,18 @@
+
 import React from 'react';
-
 import './index.css'
-
 import Portal from '../../common/portal'
 
-import { IOptionItem, ExtendFiledSubmit } from '../../types'
+import { IOptionItem, ExtendFiledSubmit, TypeCellData } from './../../types'
 
-class DropDown extends React.Component<{options: IOptionItem[], currentTarget: HTMLElement, onSubmit: ExtendFiledSubmit, cellData: TypeCellData}>{
-  dropdownContent = null;
+interface ISelectEditorProps {
+  options: IOptionItem[],
+  currentTarget: HTMLElement,
+  onSubmit: ExtendFiledSubmit,
+  cellData: TypeCellData
+}
+
+class DropDown extends React.Component<ISelectEditorProps>{
 
   handleSelect = (item) => (e) => {
     // 阻止冒泡，点击单选部分修改
@@ -64,7 +69,9 @@ class DropDown extends React.Component<{options: IOptionItem[], currentTarget: H
 
 }
 
-function DropDownList(props) {
+SelectEditor.keepEdit = true;
+
+export function SelectEditor (props) {
   function onSelect(result) {
   }
   return <div className='single-select-container'>
@@ -77,4 +84,3 @@ function DropDownList(props) {
   </div>
 }
 
-export default DropDownList

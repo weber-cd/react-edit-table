@@ -1,12 +1,12 @@
 import React from 'react'
 import './index.css'
-import { ExtendFiledSubmit } from '../../types'
+import { ExtendFiledSubmit } from './../../types'
 interface IInputEditorProps{
   onSubmit: ExtendFiledSubmit;
   value: any;
 }
 
-export default class InputEditor extends React.Component<IInputEditorProps> {
+export class InputEditor extends React.Component<IInputEditorProps> {
   inputEl = null;
   componentDidMount(){
     setTimeout(()=>{this.inputEl.focus()}, 0)

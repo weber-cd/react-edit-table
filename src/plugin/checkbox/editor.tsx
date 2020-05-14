@@ -1,13 +1,14 @@
-import React from 'react' 
-import {ExtendFiledSubmit} from '../../types'
-import './index.css'
+import React from 'react'
+// import './index.css'
+import {ExtendFiledSubmit} from './../../types'
+import './index.scss';
 
 interface CheckboxEditorProps {
   checked: boolean;
   onSubmit: ExtendFiledSubmit
 }
 
-export default class CheckboxEditor extends React.PureComponent<CheckboxEditorProps> {
+export class CheckboxEditor extends React.PureComponent<CheckboxEditorProps> {
   componentDidMount(){
     const { checked, onSubmit } = this.props;
     onSubmit(!checked)
