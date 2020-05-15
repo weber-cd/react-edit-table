@@ -13,9 +13,9 @@
 
 .delete-container .table-context-delete{
   display: block;
-  width: 18px;
-  height: 18px;
-  margin: 7px auto 0;
+  width: 16px;
+  height: 16px;
+  margin: 8px auto 0;
   /* padding: 8.5px 4px; */
   background: url('./imgs/delete.png') no-repeat center center;
   background-size: 100% 100%;

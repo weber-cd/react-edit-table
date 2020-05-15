@@ -46,17 +46,19 @@ class DropDown extends React.Component<ISelectEditorProps>{
   }
   render(){
     const { options, currentTarget } = this.props;
+    const {top, left} = currentTarget.getBoundingClientRect()
     const pos = {
-      left: currentTarget.offsetLeft,
-      top: currentTarget.offsetTop + 40,
-      minWidth: currentTarget.offsetWidth
+      left: left,
+      top: top + 40,
+      minWidth: currentTarget.offsetWidth,
+      zIndex: 99999999999
     }
   
     return <div
       className='dropdown-content'
       style={pos}
       tabIndex={1}
-      onBlur={ this.handleBlur }
+      onBlur={this.handleBlur}
       ref={node => this.dropdownContent = node}
       >
       {

@@ -25,6 +25,7 @@ export default class DataCell extends React.Component<IDataCellProps> {
     // 不可编辑
     if(this.props.editable === false) return;
     this.currentTarget = e.currentTarget;
+    // console.log('e:', Object.entries(e.currentTarget))
     this.setState({isEditing: true})
   }
   onCellValueChange = (value: string | number) => {
@@ -40,7 +41,6 @@ export default class DataCell extends React.Component<IDataCellProps> {
   isCellEditable = () => {
     const { cellData, editable } = this.props;
     if( typeof cellData === 'object' && cellData.editable !== undefined ){
-      console.log('编辑')
       return !(cellData.editable === false)
     }
     return !(editable === false)

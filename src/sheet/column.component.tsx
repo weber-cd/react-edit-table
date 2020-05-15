@@ -15,7 +15,7 @@ interface IColumnProps {
   rowIndex: number;
 }
 // 表体行
-export default class Column extends React.PureComponent<IColumnProps> {
+export default class Column extends React.Component<IColumnProps> {
   onCellSubmit = (path:TPath, value: string | number) => {
     this.props.onDataSourceUpdate(path, value)
   }

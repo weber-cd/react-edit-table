@@ -8,7 +8,7 @@ interface CheckboxEditorProps {
   onSubmit: ExtendFiledSubmit
 }
 
-export class CheckboxEditor extends React.PureComponent<CheckboxEditorProps> {
+export class CheckboxEditor extends React.Component<CheckboxEditorProps> {
   componentDidMount(){
     const { checked, onSubmit } = this.props;
     onSubmit(!checked)
