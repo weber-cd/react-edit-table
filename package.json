@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "commit": "git-cz",
     "eject": "react-scripts eject",
+    "lib": "stl build lib",
     "examples": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -51,6 +52,9 @@
     "@storybook/preset-create-react-app": "^2.1.1",
     "@storybook/react": "^5.3.18",
     "commitizen": "^4.1.2",
-    "cz-customizable": "^6.2.0"
+    "cz-customizable": "^6.2.0",
+    "node-sass": "^4.14.1",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "ts-loader": "^7.0.4"
   }
 }

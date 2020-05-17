@@ -1,5 +1,6 @@
+// @ts-nocheck
 import React from 'react';
-import ReactEditableTable from './../index.ts';
+import ReactEditableTable from './../src/index';
 
 import {dataSource, columns} from './dataSource'
 

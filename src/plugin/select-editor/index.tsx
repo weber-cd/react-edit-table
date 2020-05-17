@@ -13,6 +13,7 @@ interface ISelectEditorProps {
 }
 
 class DropDown extends React.Component<ISelectEditorProps>{
+  dropdownContent: HTMLDivElement | null = null;
 
   handleSelect = (item) => (e) => {
     // 阻止冒泡，点击单选部分修改
@@ -22,7 +23,7 @@ class DropDown extends React.Component<ISelectEditorProps>{
     { e.stopPropagation(); }
     else 
     //否则，我们需要使用IE的方式来取消事件冒泡 
-    {  window.event.cancelBubble = true;}
+    if( window && window.event){window.event.cancelBubble = true;}
 
     if(typeof this.props.cellData === 'object'){
       this.props.onSubmit({
@@ -41,7 +42,7 @@ class DropDown extends React.Component<ISelectEditorProps>{
 
   componentDidMount(){
     setTimeout(()=>{
-      this.dropdownContent.focus();
+      this.dropdownContent && this.dropdownContent.focus();
     }, 0)
   }
   render(){

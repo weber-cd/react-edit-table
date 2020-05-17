@@ -7,9 +7,9 @@ interface IInputEditorProps{
 }
 
 export class InputEditor extends React.Component<IInputEditorProps> {
-  inputEl = null;
+  inputEl: null | HTMLInputElement = null;
   componentDidMount(){
-    setTimeout(()=>{this.inputEl.focus()}, 0)
+    setTimeout(()=>{this.inputEl && this.inputEl.focus()}, 0)
   }
   render (){
     const { onSubmit, value } = this.props;

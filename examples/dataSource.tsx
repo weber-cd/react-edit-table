@@ -1,8 +1,7 @@
 // dataSource example
 // import { InputEditor, SelectEditor, CheckboxEditor, CheckboxRender } from './../../lib'
 import React from 'react';
-import { InputEditor, SelectEditor, CheckboxEditor, CheckboxRender } from '../index'
-import SuffixCaretDown from '../plugin/suffixInfo/caretDown' 
+import { InputEditor, SelectEditor, CheckboxEditor, CheckboxRender, SuffixCaretDown } from '../src/index'
 
 
 const gradeOptions = [
