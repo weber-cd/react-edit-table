@@ -18,9 +18,6 @@ export default class DataCell extends React.Component<IDataCellProps> {
   state = {
     isEditing: false
   }
-  constructor (props:IDataCellProps) {
-    super(props)
-  }
   changeEditStatus = (e: MouseEvent<HTMLDivElement>) => {
     // 不可编辑
     if(this.props.editable === false) return;

@@ -58,7 +58,13 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
   onDataSourceUpdate = (position: TPath, value: TCellValue) => {
     const [ rowIndex, key ] = position;
     // 根据路径，更新值
-    this.state.dataSource[rowIndex][key] = value;
+    // this.state.dataSource[rowIndex][key] = value;
+    this.setState(({dataSource: predataSource}) => {
+      predataSource[rowIndex][key] = value
+      return {
+        dataSource: predataSource
+      }
+    })
     this.setState({dataSource: [...this.state.dataSource]})
     // this.props.onChange(this.state.dataSource, position, value)
     this.props.onChange({newDataSource: this.state.dataSource, rowIndex, key})

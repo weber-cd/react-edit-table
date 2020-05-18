@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactElement, MouseEventHandler, ReactNode } from 'react'
+import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react'
 
 interface ICellProps{
   className: string
