@@ -1,12 +1,12 @@
 
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import './index.css'
 import Portal from '../../common/portal'
 
-import { IOptionItem, ExtendFiledSubmit, TypeCellData } from './../../types'
+import { IOptionItem, ExtendFiledSubmit, TypeCellData, ISelectEditorOptionItem } from './../../types'
 
 interface ISelectEditorProps {
-  options: IOptionItem[],
+  options: ISelectEditorOptionItem[],
   currentTarget: HTMLElement,
   onSubmit: ExtendFiledSubmit,
   cellData: TypeCellData
@@ -14,8 +14,7 @@ interface ISelectEditorProps {
 
 class DropDown extends React.Component<ISelectEditorProps>{
   dropdownContent: HTMLDivElement | null = null;
-
-  handleSelect = (item) => (e) => {
+  handleSelect = (e: MouseEvent<HTMLDivElement>, item: ISelectEditorOptionItem) => {
     // 阻止冒泡，点击单选部分修改
     // 如果提供了事件对象，则这是一个非IE浏览器 
     if ( e && e.stopPropagation ) 
@@ -23,8 +22,10 @@ class DropDown extends React.Component<ISelectEditorProps>{
     { e.stopPropagation(); }
     else 
     //否则，我们需要使用IE的方式来取消事件冒泡 
-    if( window && window.event){window.event.cancelBubble = true;}
-
+    if(window && window.event){
+      window.event.cancelBubble = true;
+    }
+    
     if(typeof this.props.cellData === 'object'){
       this.props.onSubmit({
         ...this.props.cellData,
@@ -35,7 +36,7 @@ class DropDown extends React.Component<ISelectEditorProps>{
     }
   }
 
-  handleBlur = (e1) => {
+  handleBlur = () => {
     // 这里判断对象数据源是什么格式的
     this.props.onSubmit(this.props.cellData)
   }
@@ -59,12 +60,12 @@ class DropDown extends React.Component<ISelectEditorProps>{
       className='dropdown-content'
       style={pos}
       tabIndex={1}
-      onBlur={this.handleBlur}
+      onBlur={(e)=>{this.handleBlur()}}
       ref={node => this.dropdownContent = node}
       >
       {
         options.map((item, index) => {
-          return <div onClick={this.handleSelect(item)} className='cell-confirm dropdown-content-item' key={index}>{item.text}</div>
+          return <div onClick={(e)=>{this.handleSelect(e, item)}} className='cell-confirm dropdown-content-item' key={index}>{item.text}</div>
         })
       }
     </div>
@@ -74,14 +75,12 @@ class DropDown extends React.Component<ISelectEditorProps>{
 
 SelectEditor.keepEdit = true;
 
-export function SelectEditor (props) {
-  function onSelect(result) {
-  }
+export function SelectEditor (props:ISelectEditorProps) {
   return <div className='single-select-container'>
     <div className='dropdown-container'>
       <span className='placeholder'>请选择</span>
       <Portal>
-        <DropDown onSelect={onSelect}  {...props} />
+        <DropDown  {...props} />
       </Portal>
     </div>
   </div>

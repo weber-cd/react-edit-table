@@ -52,6 +52,11 @@ export type TypeCellData = string | number | ICellDataDefault;
 export type TCellValue = string | number;
 
 export interface IScrollBodyOptions {
-  maxHeight: number,
-  locateRow: number
+  maxHeight: number;
+  locateRow: number;
+}
+
+export interface ISelectEditorOptionItem{
+  value: any;
+  text: string;
 }

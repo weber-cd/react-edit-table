@@ -13,7 +13,8 @@ interface IDataSheetProps {
   className: string;
   fromBodyEl: HTMLElement;
   maxBodyHeight: number;
-  scrollBodyOptions: IScrollBodyOptions
+  scrollBodyOptions: IScrollBodyOptions;
+  couldDeleteRow: boolean;
 }
 
 interface IDataSheetState {
@@ -22,12 +23,15 @@ interface IDataSheetState {
 
 export default class DataSheet extends React.Component<IDataSheetProps, IDataSheetState> {
   fromBodyEl:HTMLDivElement | null = null;
+  static defaultProps = {
+    couldDeleteRow: true
+  }
   constructor (props: IDataSheetProps) {
     // console.log('DataSheet:', props)
     super(props)
     // this.state.dataSource = this.props.dataSource
     this.state = {
-      dataSource: this.props.dataSource
+      dataSource: this.props.dataSource || []
     }
   }
 
@@ -41,9 +45,9 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     // this.dgDom && this.dgDom.removeEventListener('keydown', this.handleComponentKey)
   }
 
-  componentWillReceiveProps({ dataSource }: IDataSheetProps) {
+  componentWillReceiveProps({ dataSource: newDataSource }: IDataSheetProps) {
     this.setState({
-      dataSource
+      dataSource: newDataSource || []
     })
   }
   componentDidUpdate ({ scrollBodyOptions } : IDataSheetProps) {
@@ -63,7 +67,7 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
   onDataRowDelete = (rowIndex: number) => {
     this.state.dataSource.splice(rowIndex, 1)
     this.setState({
-      dataSource: [...this.state.dataSource]
+      dataSource: [...this.state.dataSource] || []
     })
     this.props.onChange([...this.state.dataSource])
     this.props.onChange({newDataSource: [...this.state.dataSource]})
@@ -73,12 +77,12 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     return {dataSource: dataSource || []}
   } */
   render () {
-    const {className, columns, scrollBodyOptions} = this.props
+    const {className, columns, scrollBodyOptions, couldDeleteRow} = this.props
     
     const styles:CSSProperties = {};
     if(scrollBodyOptions && scrollBodyOptions.maxHeight){
       styles['maxHeight'] = `${scrollBodyOptions.maxHeight}px`
-      styles['overflowY'] = 'auto'
+      styles['overflowY'] = 'auto';
     }else{
       const rowLength:number = this.state.dataSource.length;
       styles['height'] = `${rowLength * rowHeight + 50}px`
@@ -86,21 +90,22 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     return (
       <div className='data-grid-container'>
         <SheetRenderer className={['data-grid', className].filter(a => a).join(' ')}>
-        <Header columns = {columns}/>
-        <div  style={styles} ref={node => this.fromBodyEl = node}>
-        {
-          this.state.dataSource.map((dataSourceItem, index) => (
-            <Column
-              key = {index}
-              columns = {columns}
-              dataSourceItem = {dataSourceItem}
-              onDataSourceUpdate={this.onDataSourceUpdate}
-              onDataRowDelete = {()=>{this.onDataRowDelete(index)}}
-              rowIndex = {index}
-              />
-          ))
-        }
-        </div>
+          <Header columns = {columns} couldDeleteRow={couldDeleteRow} />
+          {<div className='body-container' style={styles} ref={node => this.fromBodyEl = node}>
+          {
+            this.state.dataSource.map((dataSourceItem, index) => (
+              <Column
+                key = {index}
+                columns = {columns}
+                dataSourceItem = {dataSourceItem}
+                onDataSourceUpdate={this.onDataSourceUpdate}
+                onDataRowDelete = {()=>{this.onDataRowDelete(index)}}
+                rowIndex = {index}
+                couldDeleteRow= {couldDeleteRow}
+                />
+            ))
+          }
+          </div>}
         </SheetRenderer>
       </div>
     )

@@ -4,15 +4,17 @@ span.data-grid-container, span.data-grid-container:focus {
   position: relative;
 }
 
-.data-grid-container .data-grid {
-  /* word-break: keep-all;
-  table-layout: fixed;
-  border-spacing: 0;
-  border-collapse: collapse; */
+.data-grid-container {
+  display: block;
+}
 
-  /* mod */
-  display: flex;
-  flex-flow: column nowrap;
+.data-grid-container .data-grid {
+  display: block;
+}
+
+.data-grid-container .body-container {
+  /* width: 100%; */
+  display: inline-block;
 }
 
 .row-container {

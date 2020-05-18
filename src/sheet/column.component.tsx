@@ -13,14 +13,18 @@ interface IColumnProps {
   onDataSourceUpdate: (params:TPath, value: string | number) => void;
   onDataRowDelete: (rowNumber:number) => void;
   rowIndex: number;
+  couldDeleteRow?: boolean;
 }
 // 表体行
 export default class Column extends React.Component<IColumnProps> {
+  static defaultProps = {
+    couldDeleteRow: true
+  }
   onCellSubmit = (path:TPath, value: string | number) => {
     this.props.onDataSourceUpdate(path, value)
   }
   render(){
-    const { columns, dataSourceItem, rowIndex } = this.props;
+    const { columns, dataSourceItem, rowIndex, couldDeleteRow } = this.props;
     return (
       <Row>
        { columns.map(({dataIndex, editorRender, valueRender, editable, suffixInfo})=>(
@@ -37,8 +41,10 @@ export default class Column extends React.Component<IColumnProps> {
             />
           ))
         }
-        <DeleteCell
+        {
+         couldDeleteRow === true && <DeleteCell
           onClick = {this.props.onDataRowDelete}/>
+        }
       </Row>)
   }
 }

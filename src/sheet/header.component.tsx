@@ -5,10 +5,11 @@ import { IColumnsItem } from './../types'
 
 interface IColumnsProps {
   columns: IColumnsItem[];
+  couldDeleteRow?: boolean;
 }
 
 // 表头
-function Header ({ columns }: IColumnsProps) {
+function Header ({ columns, couldDeleteRow }: IColumnsProps) {
   return (
     <Row>
       {columns.map(({title, key})=>(
@@ -18,12 +19,19 @@ function Header ({ columns }: IColumnsProps) {
           </span>
         </Cell>)
       )}
-      <Cell className={'cell header-cell'}>
-        <span className="value-viewer">
-          <span className="value-viewer-content">{'删除'}</span>
-        </span>
-      </Cell>
+      {
+        couldDeleteRow === true &&
+        <Cell className={'cell header-cell'}>
+          <span className="value-viewer">
+            <span className="value-viewer-content">{'删除'}</span>
+          </span>
+        </Cell>
+      }
     </Row>)
+}
+
+Header.defaultProps = {
+  couldDeleteRow: true
 }
 
 export default Header
