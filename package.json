@@ -21,9 +21,8 @@
     "test": "react-scripts test",
     "commit": "git-cz",
     "eject": "react-scripts eject",
-    "lib": "stl build lib",
-    "examples": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "lib": "npx babel ./src  --out-dir ./lib --config-file ./babel.config.js --extensions '.ts,.tsx' --copy-files",
+    "examples": "start-storybook -p 9009 -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addons": "^5.3.18",
