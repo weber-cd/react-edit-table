@@ -71,12 +71,11 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
   }
 
   onDataRowDelete = (rowIndex: number) => {
-    this.state.dataSource.splice(rowIndex, 1)
-    this.setState({
-      dataSource: [...this.state.dataSource] || []
+    this.setState(({dataSource: preDataSource})=>{
+      preDataSource.splice(rowIndex, 1)
+      this.props.onChange({newDataSource: [...this.state.dataSource], rowIndex})
+      return {dataSource: [...this.state.dataSource] || []}
     })
-    this.props.onChange([...this.state.dataSource])
-    this.props.onChange({newDataSource: [...this.state.dataSource]})
   }
 
   /* static getDerivedStateFromProps = ({dataSource}, state) => {
