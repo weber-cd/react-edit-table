@@ -26,7 +26,7 @@ class DropDown extends React.Component<ISelectEditorProps>{
       window.event.cancelBubble = true;
     }
     
-    if(typeof this.props.cellData === 'object'){
+    if(typeof this.props.cellData === 'object' && this.props.cellData !== null){
       this.props.onSubmit({
         ...this.props.cellData,
         value: item.value

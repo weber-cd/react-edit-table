@@ -30,14 +30,14 @@ export default class DataCell extends React.Component<IDataCellProps> {
     this.props.onCellSubmit(this.props.path, value)
   }
   cellDataIsNull = (cellData: TypeCellData) => {
-    if(typeof cellData === 'object'){
+    if(cellData !== null && typeof cellData === 'object'){
       return cellData.value === null
     }
     return cellData === null
   }
   isCellEditable = () => {
     const { cellData, editable } = this.props;
-    if( typeof cellData === 'object' && cellData.editable !== undefined ){
+    if(cellData !== null && typeof cellData === 'object' && cellData.editable !== undefined ){
       return !(cellData.editable === false)
     }
     return !(editable === false)

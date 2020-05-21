@@ -13,7 +13,7 @@ span.data-grid-container, span.data-grid-container:focus {
 }
 
 .data-grid-container .body-container {
-  /* width: 100%; */
+  min-width: 100%;
   display: inline-block;
 }
 
