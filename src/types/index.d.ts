@@ -30,9 +30,15 @@ interface IEditorRenderProps {
   path: TPath;
 }
 
+
+interface IValueRenderProps {
+  cellData: TypeCellData;
+  path: TPath;
+}
+
 export type TypeEditorRender = (params: IEditorRenderProps) => ReactElement;
 
-export type TypeValueRender = (cellData: TypeCellData) => ReactElement;
+export type TypeValueRender = (params: IValueRenderProps) => ReactElement;
 
 export interface IOptionItem {
   value?: string | number,

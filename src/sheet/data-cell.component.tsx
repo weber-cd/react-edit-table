@@ -18,6 +18,7 @@ export default class DataCell extends React.Component<IDataCellProps> {
   state = {
     isEditing: false
   }
+
   changeEditStatus = (e: MouseEvent<HTMLDivElement>) => {
     // 不可编辑
     if(this.props.editable === false) return;
@@ -61,7 +62,7 @@ export default class DataCell extends React.Component<IDataCellProps> {
           :
           <span className="value-viewer">
             <span className="value-viewer-content">
-              {valueRender ?  valueRender(cellData) : cellData}
+              {valueRender ?  valueRender({cellData, path}) : cellData}
             </span>
           </span>
         }

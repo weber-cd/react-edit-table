@@ -3,7 +3,7 @@ import React, { MouseEvent } from 'react';
 import './index.css'
 import Portal from '../../common/portal'
 
-import { IOptionItem, ExtendFiledSubmit, TypeCellData, ISelectEditorOptionItem } from './../../types'
+import { ExtendFiledSubmit, TypeCellData, ISelectEditorOptionItem } from './../../types'
 
 interface ISelectEditorProps {
   options: ISelectEditorOptionItem[],

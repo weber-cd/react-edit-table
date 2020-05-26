@@ -4,6 +4,8 @@ import Header from './header.component'
 import Column from './column.component'
 import { IDataSourceItem, IColumnsItem, IScrollBodyOptions, TPath, TCellValue } from './../types'
 import "./react-datasheet.style.css";
+import cloneDeep from 'lodash.clonedeep';
+
 const rowHeight = 40;
 
 interface IDataSheetProps {
@@ -31,7 +33,7 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     super(props)
     // this.state.dataSource = this.props.dataSource
     this.state = {
-      dataSource: this.props.dataSource || []
+      dataSource: cloneDeep(this.props.dataSource) || []
     }
   }
 
@@ -45,11 +47,8 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     // this.dgDom && this.dgDom.removeEventListener('keydown', this.handleComponentKey)
   }
 
-  componentWillReceiveProps({ dataSource: newDataSource }: IDataSheetProps) {
-    this.setState({
-      dataSource: newDataSource || []
-    })
-  }
+  /* componentWillReceiveProps({ dataSource: newDataSource }: IDataSheetProps) {
+  } */
   componentDidUpdate ({ scrollBodyOptions } : IDataSheetProps) {
     if(scrollBodyOptions && scrollBodyOptions.locateRow !== undefined){
       this.fromBodyEl && (this.fromBodyEl.scrollTop = rowHeight * scrollBodyOptions.locateRow);
@@ -58,15 +57,8 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
   onDataSourceUpdate = (position: TPath, value: TCellValue) => {
     const [ rowIndex, key ] = position;
     // 根据路径，更新值
-    // this.state.dataSource[rowIndex][key] = value;
-    this.setState(({dataSource: predataSource}) => {
-      predataSource[rowIndex][key] = value
-      return {
-        dataSource: predataSource
-      }
-    })
+    this.state.dataSource[rowIndex][key] = value;
     this.setState({dataSource: [...this.state.dataSource]})
-    // this.props.onChange(this.state.dataSource, position, value)
     this.props.onChange({newDataSource: this.state.dataSource, rowIndex, key})
   }
 
@@ -78,6 +70,11 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     })
   }
 
+  componentWillReceiveProps({ dataSource }: IDataSheetProps){
+    this.setState({
+      dataSource: cloneDeep(dataSource) || []
+    })
+  }
   /* static getDerivedStateFromProps = ({dataSource}, state) => {
     return {dataSource: dataSource || []}
   } */
@@ -90,13 +87,13 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
       styles['overflowY'] = 'auto';
     }else{
       const rowLength:number = this.state.dataSource.length;
-      styles['height'] = `${rowLength * rowHeight + 50}px`
+      styles['height'] = `${rowLength * rowHeight}px`
     }
     return (
       <div className='data-grid-container'>
         <SheetRenderer className={['data-grid', className].filter(a => a).join(' ')}>
           <Header columns = {columns} couldDeleteRow={couldDeleteRow} />
-          {<div className='body-container' style={styles} ref={node => this.fromBodyEl = node}>
+          <div className='body-container' style={styles} ref={node => this.fromBodyEl = node}>
           {
             this.state.dataSource.map((dataSourceItem, index) => (
               <Column
@@ -110,7 +107,7 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
                 />
             ))
           }
-          </div>}
+          </div>
         </SheetRenderer>
       </div>
     )

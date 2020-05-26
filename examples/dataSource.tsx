@@ -32,7 +32,7 @@ export const columns = [
     dataIndex: 'grade',
     key: 'grade',
     editorRender: ({cellData, currentTarget, onSubmit}) => <SelectEditor cellData={cellData} currentTarget={currentTarget} options={gradeOptions} onSubmit={onSubmit}/>,
-    valueRender: (cellData) => `${cellData}年级`,
+    valueRender: ({value: cellData}) => `${cellData}年级`,
     suffixInfo: <SuffixCaretDown />
   },
   {
@@ -40,7 +40,7 @@ export const columns = [
     dataIndex: 'classTh',
     key: 'classTh',
     editorRender: ({cellData, currentTarget, onSubmit}) => <SelectEditor cellData={cellData} currentTarget={currentTarget} options={cellData.options} onSubmit={onSubmit}/>,
-    valueRender: (cellData) => {
+    valueRender: ({value: cellData}) => {
       return cellData && `${cellData.value !== null ? cellData.value+'班': '请选择'}`
     },
     suffixInfo: <SuffixCaretDown />
@@ -68,7 +68,7 @@ export const columns = [
     dataIndex: 'start',
     key: 'start',
     editorRender: ({cellData, currentTarget, onSubmit}) => <CheckboxEditor checked={cellData} onSubmit={onSubmit}/>,
-    valueRender: (value) => <CheckboxRender checked={value} />
+    valueRender: ({cellData: value}) => <CheckboxRender checked={value} />
   }
 ];
 
