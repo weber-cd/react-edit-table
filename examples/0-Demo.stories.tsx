@@ -9,7 +9,11 @@ export default {
   component: ReactEditableTable,
 };
 
-export const ToStorybook = () => <ReactEditableTable dataSource = {dataSource} columns = {columns} />;
+const handleDelete = ({rowIndex}) => {
+  console.log(rowIndex);
+}
+
+export const ToStorybook = () => <ReactEditableTable onDelete={handleDelete} dataSource = {dataSource} columns = {columns} />;
 
 ToStorybook.story = {
   name: 'ReactEditableTable',

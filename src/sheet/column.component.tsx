@@ -3,7 +3,7 @@ import Row from './row.component'
 import DataCell from './data-cell.component'
 import DeleteCell from './delete-cell/delete.component'
 
-import { IDataSourceItem, IColumnsItem, } from './../types'
+import { IDataSourceItem, IColumnsItem } from './../types'
 
 type TPath = [number, string]
 

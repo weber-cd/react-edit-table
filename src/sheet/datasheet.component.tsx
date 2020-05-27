@@ -2,7 +2,7 @@ import React, { CSSProperties } from 'react'
 import SheetRenderer from './sheet-component'
 import Header from './header.component'
 import Column from './column.component'
-import { IDataSourceItem, IColumnsItem, IScrollBodyOptions, TPath, TCellValue } from './../types'
+import { IDataSourceItem, IColumnsItem, IScrollBodyOptions, TPath, TCellValue, TypeOnDelete } from './../types'
 import "./react-datasheet.style.css";
 import cloneDeep from 'lodash.clonedeep';
 
@@ -12,6 +12,8 @@ interface IDataSheetProps {
   dataSource: IDataSourceItem[];
   columns: IColumnsItem[];
   onChange: (e: any) => void;
+  onDelete?: TypeOnDelete;
+  onCellChange?: () => void; // spread cell change to parent
   className: string;
   fromBodyEl: HTMLElement;
   maxBodyHeight: number;
@@ -68,12 +70,7 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
   }
 
   onDataRowDelete = (rowIndex: number) => {
-    // TODO: just spread the delete action to parent node
-    /* this.setState(({dataSource: preDataSource})=>{
-      preDataSource.splice(rowIndex, 1)
-      this.props.onChange({newDataSource: [...this.state.dataSource], rowIndex})
-      return {dataSource: [...this.state.dataSource] || []}
-    }) */
+    this.props.onDelete && this.props.onDelete({rowIndex})
   }
 
   componentWillReceiveProps({ dataSource }: IDataSheetProps){

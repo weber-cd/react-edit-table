@@ -49,6 +49,8 @@ export interface IOptionItem {
 
 export type ExtendFiledSubmit = (value: any ) => void
 
+export type TypeOnDelete = ({rowIndex: number}) => void
+
 interface ICellDataDefault extends IStandardObject{
   value: string
 }
