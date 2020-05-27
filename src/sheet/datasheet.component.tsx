@@ -57,17 +57,23 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
   onDataSourceUpdate = (position: TPath, value: TCellValue) => {
     const [ rowIndex, key ] = position;
     // 根据路径，更新值
-    this.state.dataSource[rowIndex][key] = value;
-    this.setState({dataSource: [...this.state.dataSource]})
-    this.props.onChange({newDataSource: this.state.dataSource, rowIndex, key})
+    this.setState(({dataSource: predataSource}) => {
+      predataSource[rowIndex][key] = value
+      this.props.onChange && this.props.onChange({newDataSource: predataSource, rowIndex, key})
+      return {
+        dataSource: predataSource
+      }
+    })
+    
   }
 
   onDataRowDelete = (rowIndex: number) => {
-    this.setState(({dataSource: preDataSource})=>{
+    // TODO: just spread the delete action to parent node
+    /* this.setState(({dataSource: preDataSource})=>{
       preDataSource.splice(rowIndex, 1)
       this.props.onChange({newDataSource: [...this.state.dataSource], rowIndex})
       return {dataSource: [...this.state.dataSource] || []}
-    })
+    }) */
   }
 
   componentWillReceiveProps({ dataSource }: IDataSheetProps){
@@ -86,7 +92,7 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
       styles['maxHeight'] = `${scrollBodyOptions.maxHeight}px`
       styles['overflowY'] = 'auto';
     }else{
-      const rowLength:number = this.state.dataSource.length;
+      const rowLength:number = this.props.dataSource.length;
       styles['height'] = `${rowLength * rowHeight}px`
     }
     return (
@@ -95,7 +101,7 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
           <Header columns = {columns} couldDeleteRow={couldDeleteRow} />
           <div className='body-container' style={styles} ref={node => this.fromBodyEl = node}>
           {
-            this.state.dataSource.map((dataSourceItem, index) => (
+            this.props.dataSource.map((dataSourceItem, index) => (
               <Column
                 key = {index}
                 columns = {columns}
