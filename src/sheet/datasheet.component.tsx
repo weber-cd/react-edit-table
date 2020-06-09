@@ -60,8 +60,8 @@ export default class DataSheet extends React.Component<IDataSheetProps, IDataShe
     const [ rowIndex, key ] = position;
     // 根据路径，更新值
     this.setState(({dataSource: predataSource}) => {
-      predataSource[rowIndex][key] = value
-      this.props.onChange && this.props.onChange({newDataSource: predataSource, rowIndex, key})
+      this.props.onChange && this.props.onChange({ preValue: predataSource[rowIndex][key], newValue: value, rowIndex, key })
+      // predataSource[rowIndex][key] = value
       return {
         dataSource: predataSource
       }
