@@ -17,11 +17,13 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
     "jsx": "react",
-    "outDir": "./lib"
+    // "outDir": "./lib"
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
-    "./src/*.ts"
+    "./src/**/*.ts"
   ]
 }

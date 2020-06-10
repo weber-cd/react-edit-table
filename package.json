@@ -22,7 +22,9 @@
     "test": "react-scripts test",
     "commit": "git-cz",
     "eject": "react-scripts eject",
+    "dist": "webpack",
     "lib": "npx babel ./src  --out-dir ./lib --config-file ./babel.config.js --extensions '.ts,.tsx' --copy-files",
+    "prepublish": "npm run dist && npm run lib",
     "examples": "start-storybook -p 9009 -s public"
   },
   "eslintConfig": {
@@ -56,6 +58,7 @@
     "cz-customizable": "^6.2.0",
     "node-sass": "^4.14.1",
     "react-docgen-typescript-loader": "^3.7.2",
-    "ts-loader": "^7.0.4"
+    "ts-loader": "^7.0.4",
+    "webpack-cli": "^3.3.11"
   }
 }
