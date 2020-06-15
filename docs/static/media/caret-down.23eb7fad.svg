@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="6px" viewBox="0 0 6 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.1 (89650) - https://sketch.com -->
+    <title>dire/caret-down</title>
+    <desc>Created with Sketch.</desc>
+    <g id="员工多成本中心分摊" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="可新增项目的编辑表格" transform="translate(-545.000000, -3208.000000)">
+            <g id="dire/caret-down备份-11" transform="translate(545.000000, 3208.000000)">
+                <g id="dire/caret-down" transform="translate(3.000000, 3.000000) scale(1, -1) translate(-3.000000, -3.000000) ">
+                    <rect id="Rectangle" x="0" y="0" width="6" height="6"></rect>
+                    <path d="M5.30710739,0.866666667 C5.70013541,0.866666667 5.86580048,1.02506334 5.30710739,1.940789 L3.35294905,4.9110371 C3.15780567,5.20764779 2.84113185,5.20721628 2.64627236,4.9110371 L0.692114026,1.940789 C0.0845940793,1.03561301 0.362692106,0.866666667 0.692114026,0.866666667 L5.30710739,0.866666667 Z" id="下拉按钮" fill="#BFC3C7" transform="translate(3.000000, 3.000000) rotate(-180.000000) translate(-3.000000, -3.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
