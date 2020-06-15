@@ -13,7 +13,8 @@
     "dist": "webpack",
     "lib": "npx babel ./src  --out-dir ./lib --config-file ./babel.config.js --extensions '.ts,.tsx' --copy-files",
     "prepublish": "npm run dist && npm run lib",
-    "examples": "start-storybook -p 9009 -s public"
+    "examples": "start-storybook -p 9009",
+    "build-storybook": "build-storybook -o docs"
   },
   "authors": [
     {
