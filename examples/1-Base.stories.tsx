@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import ReactEditableTable from './../lib/index';
+import ReactEditableTable from '../lib/index';
 
 import {dataSource, columns} from './dataSource'
 

@@ -1,24 +1,21 @@
+const custom = require('../webpack.config.js');
+const path = require('path');
 module.exports = {
-  stories: ['../**/*.stories.tsx'],
+  stories: ['../examples/**/*.stories.tsx'],
   webpackFinal: async config => {
-    config.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      use: [
-        {
-          loader: require.resolve('ts-loader'),
-        },
-        // Optional
-        {
-          loader: require.resolve('react-docgen-typescript-loader'),
-        },
-      ],
-    });
-    config.resolve.extensions.push('.ts', '.tsx');
-    return config;
+    process.env.NODE_ENV === 'production' && (config.devtool = '');
+    return {
+      ...config,
+      
+      module: {
+        ...config.module,
+        rules: custom.module.rules
+      },
+      resolve: {
+        ...config.resolve,
+        ...custom.resolve
+      }}
   },
-  addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-  ],
-}
+
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+};

@@ -1,12 +1,14 @@
 {
+  "sourceMaps": true,
+  "sourceMap": true,
   "presets": [
     [
-      "@babel/preset-env",
+      "@babel/preset-env"/* ,
       {
         "targets": {
-          "node": true
+          "node": false
         }
-      }
+      } */
     ],
     "@babel/preset-react",
     "@babel/preset-typescript"
