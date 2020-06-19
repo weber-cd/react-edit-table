@@ -58,11 +58,14 @@ export default class DataCell extends React.Component<IDataCellProps> {
     return value
   }
   render () {
-    const { value, valueRender, suffixInfo: SuffixInfo, path, editor } = this.props;
+    const { value, valueRender, suffixInfo: SuffixInfo, path, editor, editable } = this.props;
     const Editor = editor?.component;
     const editorCoustomProps = editor?.props
     const editorDefaultProps = {value, currentTarget: this.currentTarget, onSubmit: this.onCellValueChange, path}
     let { className } = this.props;
+    if(editable === false) {
+      className = `${className} read-only`
+    }
     return (
       <Cell
         {...this.props}
