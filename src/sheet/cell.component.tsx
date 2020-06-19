@@ -13,7 +13,7 @@ const Cell:  React.SFC<ICellProps> = (props: ICellProps) =>  {
   const {
         className, style, onMouseDown: onMouseDownControl, children
       } = props
-
+      
   return (
     <div
       className={className}

@@ -1,14 +1,20 @@
 import React, { MouseEvent } from 'react'
 import Cell from './cell.component'
-import { TypeEditorRender, TypeValueRender, TypeCellData, TPath } from './../types'
+import { TypeEditorRender, TypeValueRender, TCellValue, TPath, IEditorOption } from './../types'
+import {CheckboxRender} from './../plugin/checkbox/render'
+
+// options value-text map cache
+const optionsValueTextMap = {}
+
 
 interface IDataCellProps {
   editorRender?: TypeEditorRender;
   valueRender?: TypeValueRender;
-  cellData: TypeCellData;
+  value: TCellValue;
   onCellSubmit: (params: TPath, value: string | number ) => void;
   className: string;
   path: TPath;
+  editor: IEditorOption
   editable: boolean;
   suffixInfo?: React.ComponentType;
 }
@@ -30,25 +36,33 @@ export default class DataCell extends React.Component<IDataCellProps> {
     this.setState({isEditing: false})
     this.props.onCellSubmit(this.props.path, value)
   }
-  cellDataIsNull = (cellData: TypeCellData) => {
-    if(cellData !== null && typeof cellData === 'object'){
-      return cellData.value === null
-    }
-    return cellData === null
+  cellDataIsNull = (value: TCellValue) => {
+    return value === null
   }
-  isCellEditable = () => {
-    const { cellData, editable } = this.props;
-    if(cellData !== null && typeof cellData === 'object' && cellData.editable !== undefined ){
-      return !(cellData.editable === false)
+  defaultValueRender (value){
+    const { editable, editor, path: [, dataIndex] } = this.props;
+    if(editable === false) return value;
+    if(editor?.type === 'select'){
+      if(!optionsValueTextMap[dataIndex]){
+        const _tempObj = {}
+        editor?.props?.options?.forEach(({value, text}) => {
+          _tempObj[value] = text;
+        });
+        optionsValueTextMap[dataIndex] = _tempObj
+      };
+      return optionsValueTextMap[dataIndex][value]
     }
-    return !(editable === false)
+    if(editor?.type === 'checkbox'){
+      return <CheckboxRender value={value} />
+    }
+    return value
   }
   render () {
-    const { editorRender: DataEditor, cellData, valueRender, suffixInfo: SuffixInfo, path } = this.props;
+    const { value, valueRender, suffixInfo: SuffixInfo, path, editor } = this.props;
+    const Editor = editor?.component;
+    const editorCoustomProps = editor?.props
+    const editorDefaultProps = {value, currentTarget: this.currentTarget, onSubmit: this.onCellValueChange, path}
     let { className } = this.props;
-    if(!this.isCellEditable()) {
-      className = `${className} read-only`
-    }
     return (
       <Cell
         {...this.props}
@@ -56,17 +70,17 @@ export default class DataCell extends React.Component<IDataCellProps> {
         className = {className}
         >
         {
-          this.state.isEditing && DataEditor &&  this.isCellEditable()
+          this.state.isEditing && editor
           ?
-          DataEditor({cellData, currentTarget: this.currentTarget, onSubmit: this.onCellValueChange, path})
+          <Editor {...editorDefaultProps} {...editorCoustomProps}/>
           :
           <span className="value-viewer">
             <span className="value-viewer-content">
-              {valueRender ?  valueRender({cellData, path}) : cellData}
+              {valueRender ?  valueRender({value, path}) : this.defaultValueRender(value)}
             </span>
           </span>
         }
-        <span className={`suffix-info ${this.state.isEditing || this.cellDataIsNull(cellData)  ? 'suffix-info-active' : ''}`}>
+        <span className={`suffix-info ${this.state.isEditing || this.cellDataIsNull(value)  ? 'suffix-info-active' : ''}`}>
           {SuffixInfo}
         </span>
       </Cell>

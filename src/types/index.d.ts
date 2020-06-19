@@ -5,26 +5,27 @@ export interface IStandardObject {
 }
 
 export interface IDataSourceItem {
-  [property: string]: TypeCellData;
+  [property: string]: TCellValue;
 }
 
 export interface IColumnsItem {
-  editorRender?: TypeEditorRender;
+  editorRender?: TypeEditorRender
   valueRender?: TypeValueRender
   // editorRender?: ReactNode;
   // valueRender?: ReactNode;
-  [property: string]: string | ReactNode;
-  key: string;
-  dataIndex: string;
-  title: string;
-  editable: boolean;
-  suffixInfo?: React.ComponentType;
+  [property: string]: string | ReactNode
+  key: string
+  dataIndex: string
+  title: string
+  editable: boolean
+  editor: IEditorOption
+  suffixInfo?: React.ComponentType
 }
 
 export type TPath = [number, string]; // [rowIndex, key]
 
 interface IEditorRenderProps {
-  cellData: TypeCellData;
+  value: TCellValue;
   currentTarget: EventTarget | null;
   onSubmit: ExtendFiledSubmit;
   path: TPath;
@@ -32,7 +33,7 @@ interface IEditorRenderProps {
 
 
 interface IValueRenderProps {
-  cellData: TypeCellData;
+  value: TCellValue;
   path: TPath;
 }
 
@@ -67,4 +68,10 @@ export interface IScrollBodyOptions {
 export interface ISelectEditorOptionItem{
   value: any;
   text: string;
+}
+
+export interface IEditorOption {
+  type: 'select' | 'input' | 'checkbox'
+  component: TypeEditorRender
+  props: IStandardObject
 }

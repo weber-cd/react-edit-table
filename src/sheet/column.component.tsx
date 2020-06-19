@@ -27,17 +27,18 @@ export default class Column extends React.Component<IColumnProps> {
     const { columns, dataSourceItem, rowIndex, couldDeleteRow } = this.props;
     return (
       <Row>
-       { columns.map(({dataIndex, editorRender, valueRender, editable, suffixInfo})=>(
+       { columns.map(({dataIndex, editorRender, editor, valueRender, editable, suffixInfo})=>(
           <DataCell
             key={dataIndex}
             onCellSubmit = {this.onCellSubmit}
-            cellData={dataSourceItem[dataIndex]}
+            value={dataSourceItem[dataIndex]}
             editorRender = { editorRender }
             className = {'cell'}
             path={[rowIndex, dataIndex]}
             valueRender = { valueRender }
             editable = {editable}
             suffixInfo = {suffixInfo}
+            editor = {editor}
             />
           ))
         }

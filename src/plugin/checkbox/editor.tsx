@@ -4,14 +4,14 @@ import {ExtendFiledSubmit} from './../../types'
 import './index.scss';
 
 interface CheckboxEditorProps {
-  checked: boolean;
+  value: boolean;
   onSubmit: ExtendFiledSubmit
 }
 
 export class CheckboxEditor extends React.Component<CheckboxEditorProps> {
   componentDidMount(){
-    const { checked, onSubmit } = this.props;
-    onSubmit(!checked)
+    const { value, onSubmit } = this.props;
+    onSubmit(!value)
   }
   render(){
     return (

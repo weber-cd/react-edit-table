@@ -3,13 +3,13 @@ import React, { MouseEvent } from 'react';
 import './index.css'
 import Portal from '../../common/portal'
 
-import { ExtendFiledSubmit, TypeCellData, ISelectEditorOptionItem } from './../../types'
+import { ExtendFiledSubmit, ISelectEditorOptionItem, TCellValue } from './../../types'
 
 interface ISelectEditorProps {
-  options: ISelectEditorOptionItem[],
-  currentTarget: HTMLElement,
-  onSubmit: ExtendFiledSubmit,
-  cellData: TypeCellData
+  options: ISelectEditorOptionItem[]
+  currentTarget: HTMLElement
+  onSubmit: ExtendFiledSubmit
+  value: TCellValue
 }
 
 class DropDown extends React.Component<ISelectEditorProps>{
@@ -25,20 +25,12 @@ class DropDown extends React.Component<ISelectEditorProps>{
     if(window && window.event){
       window.event.cancelBubble = true;
     }
-    
-    if(typeof this.props.cellData === 'object' && this.props.cellData !== null){
-      this.props.onSubmit({
-        ...this.props.cellData,
-        value: item.value
-      })
-    }else{
-      this.props.onSubmit(item.value)
-    }
+    this.props.onSubmit(item.value)
   }
 
   handleBlur = () => {
     // 这里判断对象数据源是什么格式的
-    this.props.onSubmit(this.props.cellData)
+    this.props.onSubmit(this.props.value)
   }
 
   componentDidMount(){
@@ -47,6 +39,7 @@ class DropDown extends React.Component<ISelectEditorProps>{
     }, 0)
   }
   render(){
+    console.log('this.props:', this.props)
     const { options, currentTarget } = this.props;
     const {top, left} = currentTarget.getBoundingClientRect()
     const pos = {
