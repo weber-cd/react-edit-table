@@ -1,6 +1,6 @@
 {
   "name": "react-edit-table",
-  "version": "0.1.1-experimental.3",
+  "version": "0.1.2",
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
   },
@@ -62,6 +62,10 @@
     "typescript": "^3.8.3",
     "webpack-cli": "^3.3.11"
   },
+  "files": [
+	  "lib",
+		"dist"
+	],
   "homepage": "https://github.com/weber-cd/react-edit-table",
   "main": "lib/index.js"
 }
