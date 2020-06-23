@@ -72,7 +72,7 @@ const dataSource = [
 ### Table
 
 | 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | ---| ---| --- |
+| --- | --- | ---| ---|
 | dataSource | 数据数组	 | `object[]` | - |
 | columns | 数组，见`Column` | [ColumnProps](#ColumnProps)[] | - |
 | onChange | 编辑表格完成后触发 | function() | -|

@@ -75,7 +75,7 @@ const dataSource = [
 ### Table
 
 | Property | Description | Type | Default |
-| --- | --- | ---| ---| --- |
+| --- | --- | ---| ---|
 | dataSource | Data record array to be displayed | `object[]` | - | 
 | columns | Columns of table | [ColumnProps](#ColumnProps)[][] | - | 
 | onChange | Callback executed when editing | function() | -|
