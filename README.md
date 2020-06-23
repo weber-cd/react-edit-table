@@ -74,30 +74,30 @@ const dataSource = [
 
 ### Table
 
-| Property | Description | Type | Default | 版本 |
+| Property | Description | Type | Default |
 | --- | --- | ---| ---| --- |
-| dataSource | Data record array to be displayed | `object[]` |  |  |
-| columns | Columns of table | [ColumnProps](#ColumnProps)[][] | - |  |
-| onChange | Callback executed when editing | function() | -| |
-| scrollBodyOptions | maxHeight: the max height of body;locateRow: the row locate when add a new row  | `{maxHeight: 100,  locateRow: 0}` | -| |
+| dataSource | Data record array to be displayed | `object[]` | - | 
+| columns | Columns of table | [ColumnProps](#ColumnProps)[][] | - | 
+| onChange | Callback executed when editing | function() | -|
+| scrollBodyOptions | maxHeight: the max height of body;locateRow: the row locate when add a new row  | `{maxHeight: 100,  locateRow: 0}` | -|
 
 
 ### <span id="ColumnProps">Columns</span>
 
 | Property | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| title | Title of this column | `string || ReactNode` |  |
-| dataIndex |  Display field of the data record | `string` |  | 
-| editor | the cell editor config | object: [Editor](#EditorConfig) |  |  |
-| valueRender | renderer of table cell | `function(value)` |  | 
-| suffixInfo | suffix of table cell | `reactNode` |  | 
+| --- | --- | --- | --- |
+| title | Title of this column | `string || ReactNode` | - |
+| dataIndex |  Display field of the data record | `string` | - | 
+| editor | the cell editor config | object: [Editor](#EditorConfig) | - | 
+| valueRender | renderer of table cell | `function(value)` | - | 
+| suffixInfo | suffix of table cell | `reactNode` | - | 
 
 ### <span id="EditorConfig">Editor</span>
 | Property | Description | Type | Default |
-| --- | --- | --- | --- | --- |
-| type | type of editor | `input || select || checkbox`  ||
-| componet | editor renderer; use build-in editor component or custom one，type为'cumstom' | `reactComponent`| |
-| props | the props  that will passed to editor| `object` |
+| --- | --- | --- | --- |
+| type | type of editor | `input || select || checkbox`  | - |
+| componet | editor renderer; use build-in editor component or custom one，type为'cumstom' | `reactComponent`| - |
+| props | the props  that will passed to editor| `object` |-|
 
 ##  Build-in editor component
 ```js
