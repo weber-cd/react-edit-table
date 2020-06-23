@@ -71,7 +71,7 @@ SelectEditor.keepEdit = true;
 export function SelectEditor (props:ISelectEditorProps) {
   return <div className='single-select-container'>
     <div className='dropdown-container'>
-      <span className='placeholder'>请选择</span>
+      <span className='placeholder'>Select one</span>
       <Portal>
         <DropDown  {...props} />
       </Portal>

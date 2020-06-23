@@ -6,7 +6,7 @@ import './index.scss'
 
 const columns = [
   {
-    title: '年级',
+    title: 'Grade',
     dataIndex: 'grade',
     key: 'grade',
     editor: {
@@ -16,15 +16,11 @@ const columns = [
         options: [
           {
             value: 1,
-            text: '1年级'
+            text: 'grade 1'
           }, 
           {
             value: 2,
-            text: '2年级'
-          },
-          {
-            value: 3,
-            text: '3年级'
+            text: 'grade 2'
           }
         ]
       }
@@ -32,7 +28,7 @@ const columns = [
   suffixInfo: <SuffixCaretDown />
   },
   {
-    title: '姓名',
+    title: 'Name',
     dataIndex: 'name',
     key: 'name',
     editor: {
@@ -41,13 +37,13 @@ const columns = [
     }
   },
   {
-    title: '年龄',
+    title: 'Age',
     dataIndex: 'age',
     key: 'age',
     editable: false
   },
   {
-    title: '激活',
+    title: 'IsActive',
     dataIndex: 'start',
     key: 'start',
     editor: {
@@ -60,14 +56,14 @@ const columns = [
 const dataSource = [
   {
     key: '1',
-    name: '张三',
+    name: 'James',
     age: 32,
     grade: 1,
     start: false
   },
   {
     key: '2',
-    name: '李四',
+    name: 'Tom',
     age: 42,
     grade: 2,
     start: true
@@ -104,7 +100,7 @@ export const ToStorybook = () => {
                 dataSource = {dataSourceState}
                 onChange = { onDataChange }
                 scrollBodyOptions = {{
-                  maxHeight: 100,
+                  maxHeight: 240,
                   locateRow: dataSourceState.length
                 }}
                 columns = {columns} />
@@ -117,7 +113,7 @@ export const ToStorybook = () => {
 
 
 ToStorybook.story = {
-  name: 'ReactEditeTable',
+  name: 'Demo',
 };
 
 export default {
