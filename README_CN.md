@@ -2,6 +2,9 @@
 ---
 ## 一个可编辑的react表单组件
 ## [online examples](https://weber-cd.github.io/react-edit-table)
+
+![demo gif]('./demo.gif')
+
 ## How to use
 
 ```
