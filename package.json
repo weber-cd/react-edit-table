@@ -64,7 +64,8 @@
   },
   "files": [
 	  "lib",
-		"dist"
+    "dist",
+    "package.json"
 	],
   "homepage": "https://github.com/weber-cd/react-edit-table",
   "main": "lib/index.js"

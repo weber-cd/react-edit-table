@@ -5,7 +5,7 @@
 
 ## [online examples](https://weber-cd.github.io/react-edit-table)
 
-![demo gif]('./demo.gif')
+![demo gif](demo.gif)
 
 ## How to use
 
