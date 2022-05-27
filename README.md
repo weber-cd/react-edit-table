@@ -1,7 +1,7 @@
-# react-edit-table 
+# react-edit-table 可编辑的列表组件
 ---
 ## a react table component that supports editing
-[中文文档](./README_CN.md) 可编辑的列表组件
+[中文文档](./README_CN.md)
 
 ## [online examples](https://weber-cd.github.io/react-edit-table)
 
